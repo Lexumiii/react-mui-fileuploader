@@ -60,6 +60,8 @@ export interface FileUploadProps extends PaperProps {
     maxFileSize?: number;
     maxFileUploadErrorText?: string;
     extensionExcludedErrorText?: string;
+    customFilesJoinedTextSingle?: string;
+    customFilesJoinedTextMulti?: string;
     bannerProps?: PaperProps;
     BannerProps?: PaperProps;
     defaultFiles?: ExtendedFileProps[];
@@ -81,7 +83,9 @@ export interface FileUploadProps extends PaperProps {
     LabelsGridProps?: object;
     PlaceholderGridProps?: object;
     ImageProps?: object;
-    TitleProps?: object;
+    TitleProps?: {
+        fontSize: number;
+    };
 }
 declare const _default: OverridableComponent<PaperTypeMap>;
 export default _default;

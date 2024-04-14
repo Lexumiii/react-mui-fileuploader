@@ -82,6 +82,8 @@ function FileUpload(props: FileUploadProps) {
     onFileAdd,
     onFileRemove,
     maxUploadFiles = 0,
+    customFilesJoinedTextSingle,
+    customFilesJoinedTextMulti,
     containerProps,
     ContainerProps,
     onContextReady,
@@ -456,9 +458,8 @@ function FileUpload(props: FileUploadProps) {
           component="div"
           color="textSecondary"
           sx={{ display: 'flex' }}
-          {...TitleProps}
         >
-          <Box sx={{ flexGrow: 1, fontSize: 12 }}>
+          <Box sx={{ flexGrow: 1, fontSize: TitleProps?.fontSize }}>
             {title}
           </Box>
 
@@ -467,7 +468,7 @@ function FileUpload(props: FileUploadProps) {
               {files.length}
 
               {maxUploadFiles > 0 &&
-                `/${maxUploadFiles}`} file{files?.length > 1 && 's'} joined
+                `/${maxUploadFiles}`} {(customFilesJoinedTextMulti && customFilesJoinedTextSingle) ? files?.length > 1 ? customFilesJoinedTextMulti : customFilesJoinedTextSingle : `file${files?.length > 1 && 's'} joined`}
             </Box>}
         </Typography>
 
@@ -671,7 +672,7 @@ FileUpload.defaultProps = {
   LabelsGridProps: {},
   PlaceholderGridProps: {},
   ImageProps: {},
-  TitleProps: {},
+  TitleProps: { fontSize: 12 },
 } as Partial<PaperProps>
 
 export default FileUpload

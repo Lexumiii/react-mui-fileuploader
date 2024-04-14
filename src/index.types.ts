@@ -102,6 +102,7 @@ export interface FileUploadProps extends PaperProps{
   LabelsGridProps?: object
   PlaceholderGridProps?: object
   ImageProps?: object
+  TitleProps?: object
 }
 
 declare namespace ReactMUIFileUploader {

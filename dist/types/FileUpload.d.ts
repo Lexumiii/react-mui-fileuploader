@@ -42,6 +42,7 @@ declare namespace FileUpload {
         placeholderImageDimension: PropTypes.Requireable<object>;
         PlaceholderImageDimension: PropTypes.Requireable<object>;
         ImageProps: PropTypes.Requireable<object>;
+        TitleProps: PropTypes.Requireable<object>;
     };
     var defaultProps: PaperProps;
 }

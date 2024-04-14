@@ -95,6 +95,7 @@ function FileUpload(props: FileUploadProps) {
     maxFilesContainerHeight,
     placeholderImageDimension,
     PlaceholderImageDimension,
+    TitleProps,
     ImageProps,
   } = props
 
@@ -455,6 +456,7 @@ function FileUpload(props: FileUploadProps) {
           component="div"
           color="textSecondary"
           sx={{ display: 'flex' }}
+          {...TitleProps}
         >
           <Box sx={{ flexGrow: 1, fontSize: 12 }}>
             {title}
@@ -641,6 +643,7 @@ FileUpload.propTypes = {
   placeholderImageDimension: PropTypes.object,
   PlaceholderImageDimension: PropTypes.object,
   ImageProps: PropTypes.object,
+  TitleProps: PropTypes.object,
 }
 
 FileUpload.defaultProps = {
@@ -668,6 +671,7 @@ FileUpload.defaultProps = {
   LabelsGridProps: {},
   PlaceholderGridProps: {},
   ImageProps: {},
+  TitleProps: {},
 } as Partial<PaperProps>
 
 export default FileUpload

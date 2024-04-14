@@ -81,6 +81,7 @@ export interface FileUploadProps extends PaperProps {
     LabelsGridProps?: object;
     PlaceholderGridProps?: object;
     ImageProps?: object;
+    TitleProps?: object;
 }
 declare const _default: OverridableComponent<PaperTypeMap>;
 export default _default;

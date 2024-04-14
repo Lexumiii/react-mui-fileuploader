@@ -124,7 +124,7 @@
      * @returns React.Component
      */
     function FileUpload(props) {
-        var title = props.title, header = props.header, onError = props.onError, disabled = props.disabled, imageSrc = props.imageSrc, getBase64 = props.getBase64, imageSrcAlt = props.imageSrcAlt, multiFile = props.multiFile, leftLabel = props.leftLabel, rightLabel = props.rightLabel, buttonLabel = props.buttonLabel, maxFileSize = props.maxFileSize, bannerProps = props.bannerProps, BannerProps = props.BannerProps, acceptedType = props.acceptedType, defaultFiles = props.defaultFiles, maxFileUploadErrorText = props.maxFileUploadErrorText, extensionExcludedErrorText = props.extensionExcludedErrorText, onFilesChange = props.onFilesChange, onFileAdd = props.onFileAdd, onFileRemove = props.onFileRemove, _a = props.maxUploadFiles, maxUploadFiles = _a === void 0 ? 0 : _a, containerProps = props.containerProps, ContainerProps = props.ContainerProps, onContextReady = props.onContextReady, showPlaceholderImage = props.showPlaceholderImage, errorSizeMessage = props.errorSizeMessage, allowedExtensions = props.allowedExtensions, buttonRemoveLabel = props.buttonRemoveLabel, LabelsGridProps = props.LabelsGridProps, PlaceholderGridProps = props.PlaceholderGridProps, filesContainerHeight = props.filesContainerHeight, maxFilesContainerHeight = props.maxFilesContainerHeight, placeholderImageDimension = props.placeholderImageDimension, PlaceholderImageDimension = props.PlaceholderImageDimension, ImageProps = props.ImageProps;
+        var title = props.title, header = props.header, onError = props.onError, disabled = props.disabled, imageSrc = props.imageSrc, getBase64 = props.getBase64, imageSrcAlt = props.imageSrcAlt, multiFile = props.multiFile, leftLabel = props.leftLabel, rightLabel = props.rightLabel, buttonLabel = props.buttonLabel, maxFileSize = props.maxFileSize, bannerProps = props.bannerProps, BannerProps = props.BannerProps, acceptedType = props.acceptedType, defaultFiles = props.defaultFiles, maxFileUploadErrorText = props.maxFileUploadErrorText, extensionExcludedErrorText = props.extensionExcludedErrorText, onFilesChange = props.onFilesChange, onFileAdd = props.onFileAdd, onFileRemove = props.onFileRemove, _a = props.maxUploadFiles, maxUploadFiles = _a === void 0 ? 0 : _a, containerProps = props.containerProps, ContainerProps = props.ContainerProps, onContextReady = props.onContextReady, showPlaceholderImage = props.showPlaceholderImage, errorSizeMessage = props.errorSizeMessage, allowedExtensions = props.allowedExtensions, buttonRemoveLabel = props.buttonRemoveLabel, LabelsGridProps = props.LabelsGridProps, PlaceholderGridProps = props.PlaceholderGridProps, filesContainerHeight = props.filesContainerHeight, maxFilesContainerHeight = props.maxFilesContainerHeight, placeholderImageDimension = props.placeholderImageDimension, PlaceholderImageDimension = props.PlaceholderImageDimension, TitleProps = props.TitleProps, ImageProps = props.ImageProps;
         var theme = styles.useTheme();
         // noinspection JSDeprecatedSymbols
         var bannerCompatibilityProps = __assign(__assign({}, bannerProps), BannerProps);
@@ -413,7 +413,7 @@
             theme.palette.secondary.light : theme.palette.primary.light;
         return (React.createElement(React.Fragment, null,
             React.createElement(material.Paper, __assign({ sx: { p: 1 }, elevation: 0, ref: filesCardRef, variant: "outlined" }, containerCompatibilityProps),
-                React.createElement(material.Typography, { gutterBottom: true, component: "div", color: "textSecondary", sx: { display: 'flex' } },
+                React.createElement(material.Typography, __assign({ gutterBottom: true, component: "div", color: "textSecondary", sx: { display: 'flex' } }, TitleProps),
                     React.createElement(material.Box, { sx: { flexGrow: 1, fontSize: 12 } }, title),
                     (files === null || files === void 0 ? void 0 : files.length) > 0 &&
                         React.createElement(material.Box, { sx: { fontSize: 12 } },
@@ -509,6 +509,7 @@
         placeholderImageDimension: PropTypes.object,
         PlaceholderImageDimension: PropTypes.object,
         ImageProps: PropTypes.object,
+        TitleProps: PropTypes.object,
     };
     FileUpload.defaultProps = {
         getBase64: false,
@@ -535,6 +536,7 @@
         LabelsGridProps: {},
         PlaceholderGridProps: {},
         ImageProps: {},
+        TitleProps: {},
     };
 
     return FileUpload;

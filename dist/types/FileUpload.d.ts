@@ -1,6 +1,5 @@
-/// <reference types="react" />
+import React from 'react';
 import PropTypes from 'prop-types';
-import { PaperProps } from '@mui/material';
 import { FileUploadProps } from "./index.types";
 /**
  * @name FileUpload
@@ -8,7 +7,7 @@ import { FileUploadProps } from "./index.types";
  * @param props FileUploadProps
  * @returns React.Component
  */
-declare function FileUpload(props: FileUploadProps): JSX.Element;
+declare function FileUpload(props: FileUploadProps): React.JSX.Element;
 declare namespace FileUpload {
     var propTypes: {
         getBase64: PropTypes.Requireable<boolean>;
@@ -41,6 +40,6 @@ declare namespace FileUpload {
         placeholderImageDimension: PropTypes.Requireable<object>;
         PlaceholderImageDimension: PropTypes.Requireable<object>;
     };
-    var defaultProps: Partial<PaperProps<"div", {}>>;
+    var defaultProps: PaperProps;
 }
 export default FileUpload;

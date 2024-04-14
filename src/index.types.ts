@@ -77,6 +77,8 @@ export interface FileUploadProps extends PaperProps{
   BannerProps?: PaperProps
   defaultFiles?: ExtendedFileProps[]
   onFilesChange?: (files: ExtendedFileProps[]) => void
+  onFileRemove?: (file: ExtendedFileProps[]) => void,
+  onFileAdd?: (file: ExtendedFileProps) => void,
   onContextReady?: (context: object) => void
   maxUploadFiles?: number
   /*

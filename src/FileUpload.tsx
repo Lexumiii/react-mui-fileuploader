@@ -77,6 +77,8 @@ function FileUpload(props: FileUploadProps) {
     acceptedType,
     defaultFiles,
     onFilesChange,
+    onFileAdd,
+    onFileRemove,
     maxUploadFiles = 0,
     containerProps,
     ContainerProps,
@@ -100,7 +102,7 @@ function FileUpload(props: FileUploadProps) {
   // noinspection JSDeprecatedSymbols
   const containerCompatibilityProps: object = { ...containerProps, ...ContainerProps }
   // noinspection JSDeprecatedSymbols
-  const { lg, md, sm, xs }: PlaceholderImageDimensionProps  = {
+  const { lg, md, sm, xs }: PlaceholderImageDimensionProps = {
     ...placeholderImageDimension,
     ...PlaceholderImageDimension
   }
@@ -215,21 +217,33 @@ function FileUpload(props: FileUploadProps) {
 
           reader.addEventListener("load", function () {
             files.push({
+              name: file.name,
+              size: file.size,
+              // eslint-disable-next-line
+              // @ts-ignore
+              path: this.result,
+              type: file.type,
+              contentType: file.type,
+              // eslint-disable-next-line
+              // @ts-ignore
+              lastModified: file.lastModified,
+              extension: extension?.toLowerCase()
+            }
+            )
+
+            if (onFileAdd) {
+              onFileAdd(getBase64 ? {
                 name: file.name,
                 size: file.size,
-                // eslint-disable-next-line
-                // @ts-ignore
                 path: this.result,
                 type: file.type,
                 contentType: file.type,
-                // eslint-disable-next-line
-                // @ts-ignore
                 lastModified: file.lastModified,
                 extension: extension?.toLowerCase()
-              }
-            )
+              } as ExtendedFileProps : file);
+            }
 
-            setFiles([ ...files ])
+            setFiles([...files])
           }, false)
 
           // eslint-disable-next-line
@@ -261,78 +275,86 @@ function FileUpload(props: FileUploadProps) {
    * @param index
    * @returns void
    */
-    // eslint-disable-next-line
-    // @ts-ignore
+  // eslint-disable-next-line
+  // @ts-ignore
   const removeFile = (event: MouseEvent<HTMLButtonElement, MouseEvent>, index?: number): void | object => {
-      setError(null)
+    setError(null)
 
-      if (inputRef.current) {
-        inputRef.current.value = ''
-      }
-
-      if (typeof index !== 'number') {
-        setFiles([])
-        setOriginalFiles([])
-        return
-      }
-
-      if (index < 0 || index > files.length-1) {
-        return console.error("item's index not found...")
-      }
-
-      const deletedFile = { ...files[index] }
-
-      files?.splice(index, 1)
-      originalFiles?.splice(index, 1)
-
-      setFiles([ ...files ])
-      setOriginalFiles([ ...originalFiles ])
-
-      return deletedFile
+    if (inputRef.current) {
+      inputRef.current.value = ''
     }
+
+    if (typeof index !== 'number') {
+      setFiles([])
+      setOriginalFiles([])
+      return
+    }
+
+    if (index < 0 || index > files.length - 1) {
+      return console.error("item's index not found...")
+    }
+
+    const deletedFile = { ...files[index] }
+
+    files?.splice(index, 1)
+    originalFiles?.splice(index, 1)
+
+    setFiles([...files])
+    setOriginalFiles([...originalFiles])
+
+    if (onFileRemove) {
+      onFileRemove(getBase64 ? files : originalFiles)
+
+      if (onContextReady) {
+        onContextReady(getContext())
+      }
+    }
+
+    return deletedFile
+  }
 
   /**
    * @name handleDragEnter
    * @description
    * @returns void
    */
-    // eslint-disable-next-line
-    // @ts-ignore
+  // eslint-disable-next-line
+  // @ts-ignore
   const handleDragEnter = useCallback<React.DragEventHandler<HTMLElement>>((event: DragEvent<HTMLElement>) => {
-      event.preventDefault()
-      setAnimate(true)
-    }, [])
+    event.preventDefault()
+    setAnimate(true)
+  }, [])
 
   /**
    * @name handleDragOver
    * @description
    * @returns void
    */
-    // eslint-disable-next-line
-    // @ts-ignore
+  // eslint-disable-next-line
+  // @ts-ignore
   const handleDragOver = useCallback<React.DragEventHandler<HTMLElement>>((event: DragEvent<HTMLElement>): void => {
-      event.stopPropagation()
-      event.preventDefault()
-    }, [])
+    event.stopPropagation()
+    event.preventDefault()
+  }, [])
 
   /**
    * @name handleDrop
    * @description
    * @returns void
    */
-    // eslint-disable-next-line
-    // @ts-ignore
+  // eslint-disable-next-line
+  // @ts-ignore
   const handleDrop = useCallback<React.DragEventHandler<HTMLElement>>((event: DragEvent<HTMLElement>): void => {
-      event.stopPropagation()
-      event.preventDefault()
+    event.stopPropagation()
+    event.preventDefault()
 
-      setAnimate(false)
+    setAnimate(false)
 
-      setAction({
-        event,
-        files: event.dataTransfer?.files,
-      })
-    }, [])
+    setAction({
+      event,
+      files: event.dataTransfer?.files,
+    })
+  }, [])
 
   /**
    * @name handleDragLeave
@@ -423,7 +445,7 @@ function FileUpload(props: FileUploadProps) {
         elevation={0}
         ref={filesCardRef}
         variant="outlined"
-        { ...containerCompatibilityProps }
+        {...containerCompatibilityProps}
       >
         <Typography
           gutterBottom
@@ -436,18 +458,18 @@ function FileUpload(props: FileUploadProps) {
           </Box>
 
           {files?.length > 0 &&
-          <Box sx={{ fontSize: 12 }}>
-            {files.length}
+            <Box sx={{ fontSize: 12 }}>
+              {files.length}
 
-            {maxUploadFiles > 0 &&
-            `/${maxUploadFiles}`} file{files?.length > 1 && 's'} joined
-          </Box>}
+              {maxUploadFiles > 0 &&
+                `/${maxUploadFiles}`} file{files?.length > 1 && 's'} joined
+            </Box>}
         </Typography>
 
         <Paper
           elevation={0}
           sx={{ p: 1, transition: 500, background }}
-          { ...bannerCompatibilityProps }
+          {...bannerCompatibilityProps}
         >
           <Grid
             container
@@ -456,19 +478,19 @@ function FileUpload(props: FileUploadProps) {
             justifyContent="center"
           >
             {showPlaceholderImage &&
-            <Grid
-              item
-              xs={12} sm={3} md={4}
-              sx={{ textAlign: 'center', mt: { xs: -3, sm: 2 } }}
-              {...PlaceholderGridProps}
-            >
-              <img
-                alt={imageSrcAlt}
-                src={imageSrc || uploadImage}
-                width={imageDimension.width}
-                height={imageDimension.height}
-              />
-            </Grid>}
+              <Grid
+                item
+                xs={12} sm={3} md={4}
+                sx={{ textAlign: 'center', mt: { xs: -3, sm: 2 } }}
+                {...PlaceholderGridProps}
+              >
+                <img
+                  alt={imageSrcAlt}
+                  src={imageSrc || uploadImage}
+                  width={imageDimension.width}
+                  height={imageDimension.height}
+                />
+              </Grid>}
 
             <Grid
               item
@@ -524,59 +546,59 @@ function FileUpload(props: FileUploadProps) {
         </Paper>
 
         {error &&
-        <Alert
-          color="error"
-          severity="error"
-          sx={{ mt: 1 }}
-          onClose={() => setError(null)}
-        >
-          {error}
-        </Alert>}
+          <Alert
+            color="error"
+            severity="error"
+            sx={{ mt: 1 }}
+            onClose={() => setError(null)}
+          >
+            {error}
+          </Alert>}
 
         {files?.length > 0 &&
-        <React.Fragment>
-          <StyledContainer
-            // eslint-disable-next-line
-            // @ts-ignore
-            component="div"
-            sx={{
-              overflowY: "auto",
-              mt: 2, mr: -1, pr: 1,
-              height: filesContainerHeight,
-              maxHeight: maxFilesContainerHeight
-            }}
-          >
-            {files?.map((file, index) => {
-              let size: string = (file.size/1024).toFixed(2) + ' Kb'
-
-              if (file.size > oneMega) {
-                size = (file.size/oneMega).toFixed(2) + ' Mb'
-              }
-
-              return (
-                <FileAttachment
-                  file={file}
-                  size={size}
-                  index={index}
-                  disabled={disabled}
-                  key={`upload-file--${index}`}
-                  handleRemoveFile={removeFile}
-                />
-              )
-            })}
-          </StyledContainer>
-
-          <Typography component="div" align="right" sx={{ mt: 1 }}>
-            <Button
-              size="small"
-              disabled={disabled}
-              onClick={removeFile}
-              ref={buttonDeleteRef}
+          <React.Fragment>
+            <StyledContainer
+              // eslint-disable-next-line
+              // @ts-ignore
+              component="div"
+              sx={{
+                overflowY: "auto",
+                mt: 2, mr: -1, pr: 1,
+                height: filesContainerHeight,
+                maxHeight: maxFilesContainerHeight
+              }}
             >
-              {buttonRemoveLabel || 'Remove all'}
-            </Button>
-          </Typography>
-        </React.Fragment>}
+              {files?.map((file, index) => {
+                let size: string = (file.size / 1024).toFixed(2) + ' Kb'
+
+                if (file.size > oneMega) {
+                  size = (file.size / oneMega).toFixed(2) + ' Mb'
+                }
+
+                return (
+                  <FileAttachment
+                    file={file}
+                    size={size}
+                    index={index}
+                    disabled={disabled}
+                    key={`upload-file--${index}`}
+                    handleRemoveFile={removeFile}
+                  />
+                )
+              })}
+            </StyledContainer>
+
+            <Typography component="div" align="right" sx={{ mt: 1 }}>
+              <Button
+                size="small"
+                disabled={disabled}
+                onClick={removeFile}
+                ref={buttonDeleteRef}
+              >
+                {buttonRemoveLabel || 'Remove all'}
+              </Button>
+            </Typography>
+          </React.Fragment>}
       </Paper>
     </>
   )

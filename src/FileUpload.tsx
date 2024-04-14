@@ -285,7 +285,8 @@ function FileUpload(props: FileUploadProps) {
   // @ts-ignore
   const removeFile = (event: MouseEvent<HTMLButtonElement, MouseEvent>, index?: number): void | object => {
     setError(null)
-
+    let oldFile = null;
+    let oldFileOriginal = null;
     if (inputRef.current) {
       inputRef.current.value = ''
     }
@@ -300,8 +301,11 @@ function FileUpload(props: FileUploadProps) {
       return console.error("item's index not found...")
     }
 
-    const deletedFile = { ...files[index] }
+    // get old files
+    const deletedFile = { ...files[index] } as ExtendedFileProps;
+    const deletedFileOriginal = { ...originalFiles[index] } as ExtendedFileProps;
 
+    // remove old file from files array
     files?.splice(index, 1)
     originalFiles?.splice(index, 1)
 
@@ -309,7 +313,7 @@ function FileUpload(props: FileUploadProps) {
     setOriginalFiles([...originalFiles])
 
     if (onFileRemove) {
-      onFileRemove(getBase64 ? files : originalFiles)
+      onFileRemove(getBase64 ? deletedFile : deletedFileOriginal)
 
       if (onContextReady) {
         onContextReady(getContext())

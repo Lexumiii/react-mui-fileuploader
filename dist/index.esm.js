@@ -292,13 +292,16 @@ function FileUpload(props) {
         if (index < 0 || index > files.length - 1) {
             return console.error("item's index not found...");
         }
+        // get old files
         var deletedFile = __assign({}, files[index]);
+        var deletedFileOriginal = __assign({}, originalFiles[index]);
+        // remove old file from files array
         files === null || files === void 0 ? void 0 : files.splice(index, 1);
         originalFiles === null || originalFiles === void 0 ? void 0 : originalFiles.splice(index, 1);
         setFiles(__spreadArray([], files, true));
         setOriginalFiles(__spreadArray([], originalFiles, true));
         if (onFileRemove) {
-            onFileRemove(getBase64 ? files : originalFiles);
+            onFileRemove(getBase64 ? deletedFile : deletedFileOriginal);
             if (onContextReady) {
                 onContextReady(getContext());
             }

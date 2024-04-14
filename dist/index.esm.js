@@ -127,7 +127,7 @@ var oneMega = 1024 * 1024;
  * @returns React.Component
  */
 function FileUpload(props) {
-    var title = props.title, header = props.header, onError = props.onError, disabled = props.disabled, imageSrc = props.imageSrc, getBase64 = props.getBase64, imageSrcAlt = props.imageSrcAlt, multiFile = props.multiFile, leftLabel = props.leftLabel, rightLabel = props.rightLabel, buttonLabel = props.buttonLabel, maxFileSize = props.maxFileSize, bannerProps = props.bannerProps, BannerProps = props.BannerProps, acceptedType = props.acceptedType, defaultFiles = props.defaultFiles, onFilesChange = props.onFilesChange, onFileAdd = props.onFileAdd, onFileRemove = props.onFileRemove, _a = props.maxUploadFiles, maxUploadFiles = _a === void 0 ? 0 : _a, containerProps = props.containerProps, ContainerProps = props.ContainerProps, onContextReady = props.onContextReady, showPlaceholderImage = props.showPlaceholderImage, errorSizeMessage = props.errorSizeMessage, allowedExtensions = props.allowedExtensions, buttonRemoveLabel = props.buttonRemoveLabel, LabelsGridProps = props.LabelsGridProps, PlaceholderGridProps = props.PlaceholderGridProps, filesContainerHeight = props.filesContainerHeight, maxFilesContainerHeight = props.maxFilesContainerHeight, placeholderImageDimension = props.placeholderImageDimension, PlaceholderImageDimension = props.PlaceholderImageDimension;
+    var title = props.title, header = props.header, onError = props.onError, disabled = props.disabled, imageSrc = props.imageSrc, getBase64 = props.getBase64, imageSrcAlt = props.imageSrcAlt, multiFile = props.multiFile, leftLabel = props.leftLabel, rightLabel = props.rightLabel, buttonLabel = props.buttonLabel, maxFileSize = props.maxFileSize, bannerProps = props.bannerProps, BannerProps = props.BannerProps, acceptedType = props.acceptedType, defaultFiles = props.defaultFiles, maxFileUploadErrorText = props.maxFileUploadErrorText, extensionExcludedErrorText = props.extensionExcludedErrorText, onFilesChange = props.onFilesChange, onFileAdd = props.onFileAdd, onFileRemove = props.onFileRemove, _a = props.maxUploadFiles, maxUploadFiles = _a === void 0 ? 0 : _a, containerProps = props.containerProps, ContainerProps = props.ContainerProps, onContextReady = props.onContextReady, showPlaceholderImage = props.showPlaceholderImage, errorSizeMessage = props.errorSizeMessage, allowedExtensions = props.allowedExtensions, buttonRemoveLabel = props.buttonRemoveLabel, LabelsGridProps = props.LabelsGridProps, PlaceholderGridProps = props.PlaceholderGridProps, filesContainerHeight = props.filesContainerHeight, maxFilesContainerHeight = props.maxFilesContainerHeight, placeholderImageDimension = props.placeholderImageDimension, PlaceholderImageDimension = props.PlaceholderImageDimension, ImageProps = props.ImageProps;
     var theme = useTheme();
     // noinspection JSDeprecatedSymbols
     var bannerCompatibilityProps = __assign(__assign({}, bannerProps), BannerProps);
@@ -179,7 +179,7 @@ function FileUpload(props) {
         }
         if (maxUploadFiles) {
             if ((maxUploadFiles - files.length <= 0) && onError) {
-                var errorMessage = "You cannot attach more than ".concat(maxUploadFiles, " files");
+                var errorMessage = maxFileUploadErrorText || "You cannot attach more than ".concat(maxUploadFiles, " files");
                 setError(errorMessage);
                 onError(errorMessage);
                 return false;
@@ -208,7 +208,7 @@ function FileUpload(props) {
                         var isAllowed = allowedExtensions
                             .findIndex(function (ext) { return ext.toLowerCase() === extension.toLowerCase(); }) !== -1;
                         if (!isAllowed) {
-                            var errorMessage = "Extension .".concat(extension, " has been excluded");
+                            var errorMessage = extensionExcludedErrorText || "Extension .".concat(extension, " has been excluded");
                             setError(errorMessage);
                             if (onError) {
                                 onError(errorMessage);
@@ -430,7 +430,7 @@ function FileUpload(props) {
                 React.createElement(Grid, { container: true, spacing: 2, alignItems: "center", justifyContent: "center" },
                     showPlaceholderImage &&
                         React.createElement(Grid, __assign({ item: true, xs: 12, sm: 3, md: 4, sx: { textAlign: 'center', mt: { xs: -3, sm: 2 } } }, PlaceholderGridProps),
-                            React.createElement("img", { alt: imageSrcAlt, src: imageSrc || uploadImage, width: imageDimension.width, height: imageDimension.height })),
+                            React.createElement("img", __assign({ alt: imageSrcAlt, src: imageSrc || uploadImage, width: imageDimension.width, height: imageDimension.height }, ImageProps))),
                     React.createElement(Grid, __assign({ item: true, xs: 12, sm: true, md: true, sx: {
                             color: "#fff",
                             textAlign: 'center',
@@ -493,6 +493,8 @@ FileUpload.propTypes = {
     maxFileSize: PropTypes.number,
     maxFilesContainerHeight: PropTypes.number,
     errorSizeMessage: PropTypes.string,
+    maxFileUploadErrorText: PropTypes.string,
+    extensionExcludedErrorText: PropTypes.string,
     imageSrc: PropTypes.string,
     imageSrcAlt: PropTypes.string,
     acceptedType: PropTypes.string,
@@ -509,6 +511,7 @@ FileUpload.propTypes = {
     PlaceholderGridProps: PropTypes.object,
     placeholderImageDimension: PropTypes.object,
     PlaceholderImageDimension: PropTypes.object,
+    ImageProps: PropTypes.object,
 };
 FileUpload.defaultProps = {
     getBase64: false,
@@ -534,6 +537,7 @@ FileUpload.defaultProps = {
     ContainerProps: {},
     LabelsGridProps: {},
     PlaceholderGridProps: {},
+    ImageProps: {},
 };
 
 export { FileUpload as default };

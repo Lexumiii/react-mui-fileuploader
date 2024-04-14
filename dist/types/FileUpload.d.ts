@@ -23,6 +23,8 @@ declare namespace FileUpload {
         maxFileSize: PropTypes.Requireable<number>;
         maxFilesContainerHeight: PropTypes.Requireable<number>;
         errorSizeMessage: PropTypes.Requireable<string>;
+        maxFileUploadErrorText: PropTypes.Requireable<string>;
+        extensionExcludedErrorText: PropTypes.Requireable<string>;
         imageSrc: PropTypes.Requireable<string>;
         imageSrcAlt: PropTypes.Requireable<string>;
         acceptedType: PropTypes.Requireable<string>;
@@ -39,6 +41,7 @@ declare namespace FileUpload {
         PlaceholderGridProps: PropTypes.Requireable<object>;
         placeholderImageDimension: PropTypes.Requireable<object>;
         PlaceholderImageDimension: PropTypes.Requireable<object>;
+        ImageProps: PropTypes.Requireable<object>;
     };
     var defaultProps: PaperProps;
 }

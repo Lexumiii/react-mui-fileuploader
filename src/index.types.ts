@@ -70,6 +70,8 @@ export interface FileUploadProps extends PaperProps{
   buttonLabel?: string
   acceptedType?: string
   maxFileSize?: number
+  maxFileUploadErrorText?: string;
+  extensionExcludedErrorText?: string
   /*
   * @deprecated Since version 0.3.0, please use BannerProps instead. Will be delete in next release
   */
@@ -99,6 +101,7 @@ export interface FileUploadProps extends PaperProps{
   placeholderImageDimension?: object
   LabelsGridProps?: object
   PlaceholderGridProps?: object
+  ImageProps?: object
 }
 
 declare namespace ReactMUIFileUploader {

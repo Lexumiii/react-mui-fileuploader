@@ -76,6 +76,8 @@ function FileUpload(props: FileUploadProps) {
     BannerProps,
     acceptedType,
     defaultFiles,
+    maxFileUploadErrorText,
+    extensionExcludedErrorText,
     onFilesChange,
     onFileAdd,
     onFileRemove,
@@ -93,6 +95,7 @@ function FileUpload(props: FileUploadProps) {
     maxFilesContainerHeight,
     placeholderImageDimension,
     PlaceholderImageDimension,
+    ImageProps,
   } = props
 
   const theme = useTheme()
@@ -160,7 +163,7 @@ function FileUpload(props: FileUploadProps) {
 
     if (maxUploadFiles) {
       if ((maxUploadFiles - files.length <= 0) && onError) {
-        const errorMessage = `You cannot attach more than ${maxUploadFiles} files`
+        const errorMessage = maxFileUploadErrorText || `You cannot attach more than ${maxUploadFiles} files`
 
         setError(errorMessage)
         onError(errorMessage)
@@ -201,7 +204,7 @@ function FileUpload(props: FileUploadProps) {
               ) !== -1
 
             if (!isAllowed) {
-              const errorMessage = `Extension .${extension} has been excluded`
+              const errorMessage = extensionExcludedErrorText || `Extension .${extension} has been excluded`
 
               setError(errorMessage)
               if (onError) { onError(errorMessage) }
@@ -489,6 +492,7 @@ function FileUpload(props: FileUploadProps) {
                   src={imageSrc || uploadImage}
                   width={imageDimension.width}
                   height={imageDimension.height}
+                  {...ImageProps}
                 />
               </Grid>}
 
@@ -618,6 +622,8 @@ FileUpload.propTypes = {
   maxFileSize: PropTypes.number,
   maxFilesContainerHeight: PropTypes.number,
   errorSizeMessage: PropTypes.string,
+  maxFileUploadErrorText: PropTypes.string,
+  extensionExcludedErrorText: PropTypes.string,
   imageSrc: PropTypes.string,
   imageSrcAlt: PropTypes.string,
   acceptedType: PropTypes.string,
@@ -634,6 +640,7 @@ FileUpload.propTypes = {
   PlaceholderGridProps: PropTypes.object,
   placeholderImageDimension: PropTypes.object,
   PlaceholderImageDimension: PropTypes.object,
+  ImageProps: PropTypes.object,
 }
 
 FileUpload.defaultProps = {
@@ -660,6 +667,7 @@ FileUpload.defaultProps = {
   ContainerProps: {},
   LabelsGridProps: {},
   PlaceholderGridProps: {},
+  ImageProps: {},
 } as Partial<PaperProps>
 
 export default FileUpload

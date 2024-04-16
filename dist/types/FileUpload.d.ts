@@ -32,6 +32,7 @@ declare namespace FileUpload {
         BannerProps: PropTypes.Requireable<object>;
         containerProps: PropTypes.Requireable<object>;
         ContainerProps: PropTypes.Requireable<object>;
+        useDefaultFilesOnUpdate: PropTypes.Requireable<boolean>;
         allowedExtensions: PropTypes.Requireable<any[]>;
         onError: PropTypes.Requireable<(...args: any[]) => any>;
         onContextReady: PropTypes.Requireable<(...args: any[]) => any>;

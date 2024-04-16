@@ -76,6 +76,7 @@ function FileUpload(props: FileUploadProps) {
     BannerProps,
     acceptedType,
     defaultFiles,
+    useDefaultFilesOnUpdate,
     maxFileUploadErrorText,
     extensionExcludedErrorText,
     onFilesChange,
@@ -420,7 +421,7 @@ function FileUpload(props: FileUploadProps) {
     if (
       defaultFiles
       && defaultFiles.length > 0
-      && files.length !== defaultFiles.length) {
+      && (useDefaultFilesOnUpdate || files.length !== defaultFiles.length)) {
       setFiles(defaultFiles)
     }
     // eslint-disable-next-line
@@ -637,6 +638,7 @@ FileUpload.propTypes = {
   BannerProps: PropTypes.object,
   containerProps: PropTypes.object,
   ContainerProps: PropTypes.object,
+  useDefaultFilesOnUpdate: PropTypes.bool,
   allowedExtensions: PropTypes.array,
   onError: PropTypes.func,
   onContextReady: PropTypes.func,
@@ -671,6 +673,7 @@ FileUpload.defaultProps = {
   bannerProps: {},
   BannerProps: {},
   containerProps: {},
+  useDefaultFilesOnUpdate: false,
   ContainerProps: {},
   LabelsGridProps: {},
   PlaceholderGridProps: {},

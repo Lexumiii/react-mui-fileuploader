@@ -127,7 +127,7 @@ var oneMega = 1024 * 1024;
  * @returns React.Component
  */
 function FileUpload(props) {
-    var title = props.title, header = props.header, onError = props.onError, disabled = props.disabled, imageSrc = props.imageSrc, getBase64 = props.getBase64, imageSrcAlt = props.imageSrcAlt, multiFile = props.multiFile, leftLabel = props.leftLabel, rightLabel = props.rightLabel, buttonLabel = props.buttonLabel, maxFileSize = props.maxFileSize, bannerProps = props.bannerProps, BannerProps = props.BannerProps, acceptedType = props.acceptedType, defaultFiles = props.defaultFiles, maxFileUploadErrorText = props.maxFileUploadErrorText, extensionExcludedErrorText = props.extensionExcludedErrorText, onFilesChange = props.onFilesChange, onFileAdd = props.onFileAdd, onFileRemove = props.onFileRemove, _a = props.maxUploadFiles, maxUploadFiles = _a === void 0 ? 0 : _a, customFilesJoinedTextSingle = props.customFilesJoinedTextSingle, customFilesJoinedTextMulti = props.customFilesJoinedTextMulti, containerProps = props.containerProps, ContainerProps = props.ContainerProps, onContextReady = props.onContextReady, showPlaceholderImage = props.showPlaceholderImage, errorSizeMessage = props.errorSizeMessage, allowedExtensions = props.allowedExtensions, buttonRemoveLabel = props.buttonRemoveLabel, LabelsGridProps = props.LabelsGridProps, PlaceholderGridProps = props.PlaceholderGridProps, filesContainerHeight = props.filesContainerHeight, maxFilesContainerHeight = props.maxFilesContainerHeight, placeholderImageDimension = props.placeholderImageDimension, PlaceholderImageDimension = props.PlaceholderImageDimension, TitleProps = props.TitleProps, ImageProps = props.ImageProps;
+    var title = props.title, header = props.header, onError = props.onError, disabled = props.disabled, imageSrc = props.imageSrc, getBase64 = props.getBase64, imageSrcAlt = props.imageSrcAlt, multiFile = props.multiFile, leftLabel = props.leftLabel, rightLabel = props.rightLabel, buttonLabel = props.buttonLabel, maxFileSize = props.maxFileSize, bannerProps = props.bannerProps, BannerProps = props.BannerProps, acceptedType = props.acceptedType, defaultFiles = props.defaultFiles, useDefaultFilesOnUpdate = props.useDefaultFilesOnUpdate, maxFileUploadErrorText = props.maxFileUploadErrorText, extensionExcludedErrorText = props.extensionExcludedErrorText, onFilesChange = props.onFilesChange, onFileAdd = props.onFileAdd, onFileRemove = props.onFileRemove, _a = props.maxUploadFiles, maxUploadFiles = _a === void 0 ? 0 : _a, customFilesJoinedTextSingle = props.customFilesJoinedTextSingle, customFilesJoinedTextMulti = props.customFilesJoinedTextMulti, containerProps = props.containerProps, ContainerProps = props.ContainerProps, onContextReady = props.onContextReady, showPlaceholderImage = props.showPlaceholderImage, errorSizeMessage = props.errorSizeMessage, allowedExtensions = props.allowedExtensions, buttonRemoveLabel = props.buttonRemoveLabel, LabelsGridProps = props.LabelsGridProps, PlaceholderGridProps = props.PlaceholderGridProps, filesContainerHeight = props.filesContainerHeight, maxFilesContainerHeight = props.maxFilesContainerHeight, placeholderImageDimension = props.placeholderImageDimension, PlaceholderImageDimension = props.PlaceholderImageDimension, TitleProps = props.TitleProps, ImageProps = props.ImageProps;
     var theme = useTheme();
     // noinspection JSDeprecatedSymbols
     var bannerCompatibilityProps = __assign(__assign({}, bannerProps), BannerProps);
@@ -395,7 +395,7 @@ function FileUpload(props) {
     useEffect(function () {
         if (defaultFiles
             && defaultFiles.length > 0
-            && files.length !== defaultFiles.length) {
+            && (useDefaultFilesOnUpdate || files.length !== defaultFiles.length)) {
             setFiles(defaultFiles);
         }
         // eslint-disable-next-line
@@ -504,6 +504,7 @@ FileUpload.propTypes = {
     BannerProps: PropTypes.object,
     containerProps: PropTypes.object,
     ContainerProps: PropTypes.object,
+    useDefaultFilesOnUpdate: PropTypes.bool,
     allowedExtensions: PropTypes.array,
     onError: PropTypes.func,
     onContextReady: PropTypes.func,
@@ -537,6 +538,7 @@ FileUpload.defaultProps = {
     bannerProps: {},
     BannerProps: {},
     containerProps: {},
+    useDefaultFilesOnUpdate: false,
     ContainerProps: {},
     LabelsGridProps: {},
     PlaceholderGridProps: {},

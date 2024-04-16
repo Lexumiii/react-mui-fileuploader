@@ -68,6 +68,10 @@ export interface FileUploadProps extends PaperProps {
   rightLabel?: string
   imageSrcAlt?: string
   buttonLabel?: string
+  /**
+   * If true and default files update then the current files will be overridden by the default files.
+   */
+  useDefaultFilesOnUpdate?: boolean;
   acceptedType?: string
   maxFileSize?: number
   maxFileUploadErrorText?: string

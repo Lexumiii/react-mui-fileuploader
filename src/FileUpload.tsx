@@ -285,8 +285,6 @@ function FileUpload(props: FileUploadProps) {
   // @ts-ignore
   const removeFile = (event: MouseEvent<HTMLButtonElement, MouseEvent>, index?: number): void | object => {
     setError(null)
-    let oldFile = null;
-    let oldFileOriginal = null;
     if (inputRef.current) {
       inputRef.current.value = ''
     }
@@ -305,6 +303,10 @@ function FileUpload(props: FileUploadProps) {
     const deletedFile = { ...files[index] } as ExtendedFileProps;
     const deletedFileOriginal = { ...originalFiles[index] } as ExtendedFileProps;
 
+    if (onFileRemove) {
+      onFileRemove(getBase64 ? deletedFile : deletedFileOriginal)
+    }
+
     // remove old file from files array
     files?.splice(index, 1)
     originalFiles?.splice(index, 1)
@@ -312,16 +314,13 @@ function FileUpload(props: FileUploadProps) {
     setFiles([...files])
     setOriginalFiles([...originalFiles])
 
-    if (onFileRemove) {
-      onFileRemove(getBase64 ? deletedFile : deletedFileOriginal)
-
-      if (onContextReady) {
-        onContextReady(getContext())
-      }
+    if (onContextReady && onFileRemove) {
+      onContextReady(getContext())
     }
 
     return deletedFile
-  }
+}
+
 
   /**
    * @name handleDragEnter

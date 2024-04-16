@@ -295,16 +295,16 @@ function FileUpload(props) {
         // get old files
         var deletedFile = __assign({}, files[index]);
         var deletedFileOriginal = __assign({}, originalFiles[index]);
+        if (onFileRemove) {
+            onFileRemove(getBase64 ? deletedFile : deletedFileOriginal);
+        }
         // remove old file from files array
         files === null || files === void 0 ? void 0 : files.splice(index, 1);
         originalFiles === null || originalFiles === void 0 ? void 0 : originalFiles.splice(index, 1);
         setFiles(__spreadArray([], files, true));
         setOriginalFiles(__spreadArray([], originalFiles, true));
-        if (onFileRemove) {
-            onFileRemove(getBase64 ? deletedFile : deletedFileOriginal);
-            if (onContextReady) {
-                onContextReady(getContext());
-            }
+        if (onContextReady && onFileRemove) {
+            onContextReady(getContext());
         }
         return deletedFile;
     };

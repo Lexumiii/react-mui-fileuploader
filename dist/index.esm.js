@@ -127,12 +127,15 @@ var oneMega = 1024 * 1024;
  * @returns React.Component
  */
 function FileUpload(props) {
-    var title = props.title, header = props.header, onError = props.onError, disabled = props.disabled, imageSrc = props.imageSrc, getBase64 = props.getBase64, imageSrcAlt = props.imageSrcAlt, multiFile = props.multiFile, leftLabel = props.leftLabel, rightLabel = props.rightLabel, buttonLabel = props.buttonLabel, maxFileSize = props.maxFileSize, bannerProps = props.bannerProps, BannerProps = props.BannerProps, acceptedType = props.acceptedType, defaultFiles = props.defaultFiles, useDefaultFilesOnUpdate = props.useDefaultFilesOnUpdate, maxFileUploadErrorText = props.maxFileUploadErrorText, extensionExcludedErrorText = props.extensionExcludedErrorText, onFilesChange = props.onFilesChange, onFileAdd = props.onFileAdd, onFileRemove = props.onFileRemove, _a = props.maxUploadFiles, maxUploadFiles = _a === void 0 ? 0 : _a, customFilesJoinedTextSingle = props.customFilesJoinedTextSingle, customFilesJoinedTextMulti = props.customFilesJoinedTextMulti, containerProps = props.containerProps, ContainerProps = props.ContainerProps, onContextReady = props.onContextReady, showPlaceholderImage = props.showPlaceholderImage, errorSizeMessage = props.errorSizeMessage, allowedExtensions = props.allowedExtensions, buttonRemoveLabel = props.buttonRemoveLabel, LabelsGridProps = props.LabelsGridProps, PlaceholderGridProps = props.PlaceholderGridProps, filesContainerHeight = props.filesContainerHeight, maxFilesContainerHeight = props.maxFilesContainerHeight, placeholderImageDimension = props.placeholderImageDimension, PlaceholderImageDimension = props.PlaceholderImageDimension, TitleProps = props.TitleProps, ImageProps = props.ImageProps;
+    var title = props.title, header = props.header, onError = props.onError, disabled = props.disabled, imageSrc = props.imageSrc, getBase64 = props.getBase64, imageSrcAlt = props.imageSrcAlt, multiFile = props.multiFile, leftLabel = props.leftLabel, rightLabel = props.rightLabel, buttonLabel = props.buttonLabel, maxFileSize = props.maxFileSize, bannerProps = props.bannerProps, BannerProps = props.BannerProps, acceptedType = props.acceptedType, defaultFiles = props.defaultFiles, useDefaultFilesOnUpdate = props.useDefaultFilesOnUpdate, maxFileUploadErrorText = props.maxFileUploadErrorText, extensionExcludedErrorText = props.extensionExcludedErrorText, onFilesChange = props.onFilesChange, onFileAdd = props.onFileAdd, onFileRemove = props.onFileRemove, _a = props.maxUploadFiles, maxUploadFiles = _a === void 0 ? 0 : _a, customFilesJoinedTextSingle = props.customFilesJoinedTextSingle, customFilesJoinedTextMulti = props.customFilesJoinedTextMulti, containerProps = props.containerProps, ContainerProps = props.ContainerProps, headerProps = props.headerProps, HeaderProps = props.HeaderProps, labelProps = props.labelProps, LabelProps = props.LabelProps, buttonProps = props.buttonProps, ButtonProps = props.ButtonProps, buttonRemoveProps = props.buttonRemoveProps, ButtonRemoveProps = props.ButtonRemoveProps, onContextReady = props.onContextReady, showPlaceholderImage = props.showPlaceholderImage, errorSizeMessage = props.errorSizeMessage, allowedExtensions = props.allowedExtensions, buttonRemoveLabel = props.buttonRemoveLabel, LabelsGridProps = props.LabelsGridProps, PlaceholderGridProps = props.PlaceholderGridProps, filesContainerHeight = props.filesContainerHeight, maxFilesContainerHeight = props.maxFilesContainerHeight, placeholderImageDimension = props.placeholderImageDimension, PlaceholderImageDimension = props.PlaceholderImageDimension, TitleProps = props.TitleProps, ImageProps = props.ImageProps;
     var theme = useTheme();
     // noinspection JSDeprecatedSymbols
     var bannerCompatibilityProps = __assign(__assign({}, bannerProps), BannerProps);
-    // noinspection JSDeprecatedSymbols
     var containerCompatibilityProps = __assign(__assign({}, containerProps), ContainerProps);
+    var HeaderCompatibilityProps = __assign(__assign({}, headerProps), HeaderProps);
+    var LabelCompatibilityProps = __assign(__assign({}, labelProps), LabelProps);
+    var ButtonCompatibilityProps = __assign(__assign({}, buttonProps), ButtonProps);
+    var ButtonRemoveCompatibilityProps = __assign(__assign({}, buttonRemoveProps), ButtonRemoveProps);
     // noinspection JSDeprecatedSymbols
     var _b = __assign(__assign({}, placeholderImageDimension), PlaceholderImageDimension), lg = _b.lg, md = _b.md, sm = _b.sm, xs = _b.xs;
     var _c = useState(), error = _c[0], setError = _c[1];
@@ -439,21 +442,21 @@ function FileUpload(props) {
                             mt: { xs: showPlaceholderImage ? -4 : 0, sm: 2 }
                         } }, LabelsGridProps),
                         React.createElement(Hidden, { smDown: true },
-                            React.createElement(Typography, { variant: "h5" },
+                            React.createElement(Typography, __assign({ variant: "h5" }, HeaderCompatibilityProps),
                                 React.createElement("b", null, header))),
                         React.createElement(Hidden, { smUp: true },
-                            React.createElement(Typography, { variant: "h6" },
+                            React.createElement(Typography, __assign({ variant: "h6" }, HeaderCompatibilityProps),
                                 React.createElement("b", null, header))),
-                        React.createElement(Typography, { variant: "caption" },
+                        React.createElement(Typography, __assign({ variant: "caption" }, LabelCompatibilityProps),
                             leftLabel,
-                            React.createElement(Button, { size: "small", color: "secondary", variant: "outlined", disabled: disabled, onClick: function () { var _a; return (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.click(); }, sx: {
+                            React.createElement(Button, __assign({ size: "small", color: "secondary", variant: "outlined", disabled: disabled, onClick: function () { var _a; return (_a = inputRef.current) === null || _a === void 0 ? void 0 : _a.click(); }, sx: {
                                     m: .5,
                                     color: theme.palette.grey["50"],
                                     borderColor: theme.palette.grey["50"],
                                     '&:hover': {
                                         borderColor: theme.palette.grey["50"]
                                     }
-                                } }, buttonLabel),
+                                } }, ButtonCompatibilityProps), buttonLabel),
                             rightLabel),
                         React.createElement("input", { type: "file", ref: inputRef, onChange: function (event) { return addFile(event); }, multiple: multiFile, accept: acceptedType, style: { display: "none" } })))),
             error &&
@@ -479,7 +482,7 @@ function FileUpload(props) {
                         return (React.createElement(FileAttachment, { file: file, size: size, index: index, disabled: disabled, key: "upload-file--".concat(index), handleRemoveFile: removeFile }));
                     })),
                     React.createElement(Typography, { component: "div", align: "right", sx: { mt: 1 } },
-                        React.createElement(Button, { size: "small", disabled: disabled, onClick: removeFile, ref: buttonDeleteRef }, buttonRemoveLabel || 'Remove all'))))));
+                        React.createElement(Button, __assign({ size: "small", disabled: disabled, onClick: removeFile, ref: buttonDeleteRef }, ButtonRemoveCompatibilityProps), buttonRemoveLabel || 'Remove all'))))));
 }
 FileUpload.propTypes = {
     getBase64: PropTypes.bool,
@@ -504,6 +507,14 @@ FileUpload.propTypes = {
     BannerProps: PropTypes.object,
     containerProps: PropTypes.object,
     ContainerProps: PropTypes.object,
+    headerProps: PropTypes.object,
+    HeaderProps: PropTypes.object,
+    labelProps: PropTypes.object,
+    LabelProps: PropTypes.object,
+    buttonProps: PropTypes.object,
+    ButtonProps: PropTypes.object,
+    buttonRemoveProps: PropTypes.object,
+    ButtonRemoveProps: PropTypes.object,
     useDefaultFilesOnUpdate: PropTypes.bool,
     allowedExtensions: PropTypes.array,
     onError: PropTypes.func,

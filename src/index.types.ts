@@ -1,4 +1,4 @@
-import { PaperProps } from '@mui/material'
+import { PaperProps, TypographyProps, ButtonProps } from '@mui/material'
 import { OverridableComponent } from '@mui/material/OverridableComponent'
 import { PaperTypeMap } from '@mui/material/Paper/Paper'
 
@@ -71,7 +71,7 @@ export interface FileUploadProps extends PaperProps {
   /**
    * If true and default files update then the current files will be overridden by the default files.
    */
-  useDefaultFilesOnUpdate?: boolean;
+  useDefaultFilesOnUpdate?: boolean
   acceptedType?: string
   maxFileSize?: number
   maxFileUploadErrorText?: string
@@ -83,6 +83,27 @@ export interface FileUploadProps extends PaperProps {
    */
   bannerProps?: PaperProps
   BannerProps?: PaperProps
+  /*
+   * @deprecated Since version 0.3.0, please use BannerProps instead. Will be delete in next release
+   */
+  headerProps: TypographyProps
+  HeaderProps: TypographyProps
+  /*
+   * @deprecated Since version 0.3.0, please use BannerProps instead. Will be delete in next release
+   */
+  labelProps: TypographyProps
+  LabelProps: TypographyProps
+  /*
+   * @deprecated Since version 0.3.0, please use BannerProps instead. Will be delete in next release
+   */
+  buttonProps: ButtonProps
+  ButtonProps: ButtonProps
+  /*
+   * @deprecated Since version 0.3.0, please use BannerProps instead. Will be delete in next release
+   */
+  buttonRemoveProps: ButtonProps
+  ButtonRemoveProps: ButtonProps
+
   defaultFiles?: ExtendedFileProps[]
   onFilesChange?: (files: ExtendedFileProps[]) => void
   onFileRemove?: (file: ExtendedFileProps) => void

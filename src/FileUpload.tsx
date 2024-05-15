@@ -87,6 +87,14 @@ function FileUpload(props: FileUploadProps) {
     customFilesJoinedTextMulti,
     containerProps,
     ContainerProps,
+    headerProps,
+    HeaderProps,
+    labelProps,
+    LabelProps,
+    buttonProps,
+    ButtonProps,
+    buttonRemoveProps,
+    ButtonRemoveProps,
     onContextReady,
     showPlaceholderImage,
     errorSizeMessage,
@@ -106,8 +114,13 @@ function FileUpload(props: FileUploadProps) {
 
   // noinspection JSDeprecatedSymbols
   const bannerCompatibilityProps: object = { ...bannerProps, ...BannerProps }
-  // noinspection JSDeprecatedSymbols
   const containerCompatibilityProps: object = { ...containerProps, ...ContainerProps }
+  const HeaderCompatibilityProps: object = { ...headerProps, ...HeaderProps }
+  const LabelCompatibilityProps: object = { ...labelProps, ...LabelProps }
+  const ButtonCompatibilityProps: object = { ...buttonProps, ...ButtonProps }
+  const ButtonRemoveCompatibilityProps: object = { ...buttonRemoveProps, ...ButtonRemoveProps }
+
+
   // noinspection JSDeprecatedSymbols
   const { lg, md, sm, xs }: PlaceholderImageDimensionProps = {
     ...placeholderImageDimension,
@@ -320,7 +333,7 @@ function FileUpload(props: FileUploadProps) {
     }
 
     return deletedFile
-}
+  }
 
 
   /**
@@ -514,16 +527,16 @@ function FileUpload(props: FileUploadProps) {
               {...LabelsGridProps}
             >
               <Hidden smDown>
-                <Typography variant="h5">
+                <Typography variant="h5" {...HeaderCompatibilityProps}>
                   <b>{header}</b>
                 </Typography>
               </Hidden>
               <Hidden smUp>
-                <Typography variant="h6">
+                <Typography variant="h6" {...HeaderCompatibilityProps}>
                   <b>{header}</b>
                 </Typography>
               </Hidden>
-              <Typography variant="caption">
+              <Typography variant="caption" {...LabelCompatibilityProps}>
                 {leftLabel}
                 <Button
                   size="small"
@@ -539,6 +552,7 @@ function FileUpload(props: FileUploadProps) {
                       borderColor: theme.palette.grey["50"]
                     }
                   }}
+                  {...ButtonCompatibilityProps}
                 >
                   {buttonLabel}
                 </Button>
@@ -605,6 +619,7 @@ function FileUpload(props: FileUploadProps) {
                 disabled={disabled}
                 onClick={removeFile}
                 ref={buttonDeleteRef}
+                {...ButtonRemoveCompatibilityProps}
               >
                 {buttonRemoveLabel || 'Remove all'}
               </Button>
@@ -638,6 +653,14 @@ FileUpload.propTypes = {
   BannerProps: PropTypes.object,
   containerProps: PropTypes.object,
   ContainerProps: PropTypes.object,
+  headerProps: PropTypes.object,
+  HeaderProps: PropTypes.object,
+  labelProps: PropTypes.object,
+  LabelProps: PropTypes.object,
+  buttonProps: PropTypes.object,
+  ButtonProps: PropTypes.object,
+  buttonRemoveProps: PropTypes.object,
+  ButtonRemoveProps: PropTypes.object,
   useDefaultFilesOnUpdate: PropTypes.bool,
   allowedExtensions: PropTypes.array,
   onError: PropTypes.func,

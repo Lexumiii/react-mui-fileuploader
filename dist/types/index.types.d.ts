@@ -1,4 +1,4 @@
-import { PaperProps } from '@mui/material';
+import { PaperProps, TypographyProps, ButtonProps } from '@mui/material';
 export interface FileAttachmentProps {
     /** size of the attachment */
     size: string;
@@ -68,6 +68,14 @@ export interface FileUploadProps extends PaperProps {
     customFilesJoinedTextMulti?: string;
     bannerProps?: PaperProps;
     BannerProps?: PaperProps;
+    headerProps: TypographyProps;
+    HeaderProps: TypographyProps;
+    labelProps: TypographyProps;
+    LabelProps: TypographyProps;
+    buttonProps: ButtonProps;
+    ButtonProps: ButtonProps;
+    buttonRemoveProps: ButtonProps;
+    ButtonRemoveProps: ButtonProps;
     defaultFiles?: ExtendedFileProps[];
     onFilesChange?: (files: ExtendedFileProps[]) => void;
     onFileRemove?: (file: ExtendedFileProps) => void;
